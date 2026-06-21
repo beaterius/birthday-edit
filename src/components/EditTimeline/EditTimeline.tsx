@@ -20,7 +20,7 @@ export default function EditTimeline() {
 
         const triggerTransition = () => {
             setCurrentIndex((prev) => (prev + 1) % IMAGES.length);
-            setTransitionIndex(Math.floor(Math.random() * 3));
+            setTransitionIndex(Math.floor(Math.random() * 10));
 
             setIsBeat(true);
             setTimeout(() => setIsBeat(false), 140);
@@ -107,6 +107,14 @@ export default function EditTimeline() {
                         {transitionIndex === 0 && "🎂 З Днем Народження! 🎂"}
                         {transitionIndex === 1 && "❤️ Нехай всі мрії здійсняться ❤️"}
                         {transitionIndex === 2 && "👑 QUEEN 👑"}
+                        {transitionIndex === 3 && "✨ Сяй яскравіше за зірки ✨"}
+                        {transitionIndex === 4 && "💖 Ти неймовірна! 💖"}
+                        {transitionIndex === 5 && "🥂 За твій шалений успіх! 🥂"}
+                        {transitionIndex === 6 && "🌟 Будь найщасливішою 🌟"}
+                        {transitionIndex === 7 && "🔥 Лови кожен момент 🔥"}
+                        {transitionIndex === 8 && "🦄 Твори свою магію 🦄"}
+                        {transitionIndex === 9 && "💫 Тільки вперед і вгору 💫"}
+                        {transitionIndex === 10 && "🥳 Твій день — твої правила! 🥳"}
                     </motion.h2>
                 </div>
             </div>
