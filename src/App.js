@@ -20,5 +20,17 @@ export default function App() {
             audioRef.current.volume = 0.1;
         }
     }, []);
-    return (_jsxs("div", { className: "app-container", children: [_jsx("audio", { ref: audioRef, src: "/music/birthday.mp3", loop: true, preload: "auto" }), !isStarted ? (_jsx(Intro, { onStart: handleStart })) : (_jsx(EditTimeline, {}))] }));
-}
+    return (_jsxs("div", {
+        className: "app-container",
+        children: [
+            _jsx("audio", {
+                ref: audioRef,
+                src: `${import.meta.env.BASE_URL}music/birthday.mp3`,
+                loop: true,
+                preload: "auto"
+            }),
+            !isStarted
+                ? (_jsx(Intro, { onStart: handleStart }))
+                : (_jsx(EditTimeline, {}))
+        ]
+    }));}
