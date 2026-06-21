@@ -4,8 +4,7 @@ import EditTimeline from './components/EditTimeline/EditTimeline';
 import BirthdayMessage from './components/BirthdayMessage/BirthdayMessage';
 
 // Імпортуємо аудіо безпосередньо. Vite сам розбереться зі шляхами для GitHub Pages!
-const birthdayAudio =
-    `${import.meta.env.BASE_URL}music/birthday.mp3`;
+import birthdayAudio from './assets/music/birthday.mp3';
 
 export default function App() {
     const [isStarted, setIsStarted] = useState(false);
@@ -33,7 +32,11 @@ export default function App() {
             )}
 
             {/* Використовуємо імпортований аудіо-трек */}
-            <audio ref={audioRef} src={birthdayAudio} loop preload="auto" />
-        </>
+            <audio
+                ref={audioRef}
+                src={birthdayAudio}
+                loop
+                preload="auto"
+            />        </>
     );
 }
