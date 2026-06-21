@@ -25,8 +25,7 @@ export default function App() {
     return (
         <div className="app-container">
             {/* Фоновий трек, який тепер живе постійно і не зникає */}
-            <audio ref={audioRef} src="/music/birthday.mp3" loop preload="auto" />
-
+            <audio ref={audioRef} src="music/birthday.mp3" loop preload="auto" />
             {!isStarted ? (
                 <Intro onStart={handleStart} />
             ) : (
