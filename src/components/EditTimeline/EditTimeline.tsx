@@ -20,7 +20,7 @@ export default function EditTimeline() {
 
         const triggerTransition = () => {
             setCurrentIndex((prev) => (prev + 1) % IMAGES.length);
-            setTransitionIndex(Math.floor(Math.random() * 10));
+            setTransitionIndex(Math.floor(Math.random() * 11));
 
             setIsBeat(true);
             setTimeout(() => setIsBeat(false), 140);
