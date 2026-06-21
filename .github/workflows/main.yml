@@ -13,15 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
 
-      - name: Install
-        run: npm install
+      # Додаємо цей крок для явного використання Node.js 24
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm' # Пришвидшить наступні збірки завдяки кешуванню
 
-      - name: Build
+      - name: Install 📦
+        run: npm ci # Рекомендовано замість npm install для чистих серверів збірки
+
+      - name: Build 🛠️
         run: npm run build
 
-      - name: Deploy
+      - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
