@@ -1,7 +1,7 @@
 {
   "name": "birthday-edit",
   "homepage": "https://beaterius.github.io/birthday-edit",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
