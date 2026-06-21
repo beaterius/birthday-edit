@@ -3,7 +3,7 @@ import Intro from './components/Intro/Intro';
 import EditTimeline from './components/EditTimeline/EditTimeline';
 import BirthdayMessage from './components/BirthdayMessage/BirthdayMessage';
 
-// Імпортуємо аудіо безпосередньо. Vite сам розбереться зі шляхами для GitHub Pages!
+// Імпортуємо аудіо безпосередньо за допомогою Vite
 import birthdayAudio from '/music/birthday.mp3';
 
 export default function App() {
@@ -21,7 +21,6 @@ export default function App() {
 
     return (
         <>
-            {/* Ховаємо інтро після кліку */}
             {!isStarted ? (
                 <Intro onStart={handleStart} />
             ) : (
@@ -31,6 +30,7 @@ export default function App() {
                 </>
             )}
 
+            {/* Передаємо імпортовану аудіодоріжку */}
             <audio ref={audioRef} src={birthdayAudio} loop preload="auto" />
         </>
     );

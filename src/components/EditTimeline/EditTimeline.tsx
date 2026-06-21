@@ -1,16 +1,13 @@
-// src/components/EditTimeline/EditTimeline.tsx
 import { useState, useEffect } from 'react';
-import {AnimatePresence, motion} from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
+// Шляхи робимо СУТО відносними (без початкового слешу '/')
 const IMAGES = [
     'photos/photo1.jpg', 'photos/photo2.jpg', 'photos/photo3.jpg', 'photos/photo4.jpg',
     'photos/photo5.jpg', 'photos/photo6.jpg', 'photos/photo7.jpg', 'photos/photo8.jpg', 'photos/photo9.jpg',
     'photos/photo10.jpg', 'photos/photo11.jpg'
 ];
 
-
-
-// Імітація рваного таймінгу ТікТок-едіту (Velocity)
 const EDIT_TIMINGS = [450, 350, 350, 700, 400, 550];
 
 export default function EditTimeline() {
@@ -22,14 +19,10 @@ export default function EditTimeline() {
         let timeoutId: number;
 
         const triggerTransition = () => {
-            // Зміна кадру
             setCurrentIndex((prev) => (prev + 1) % IMAGES.length);
-            // Рандомізуємо індекс для зміни варіацій тексту чи додаткових мікро-ефектів
             setTransitionIndex(Math.floor(Math.random() * 3));
 
-            // Активуємо тригер біту для всіх ефектів
             setIsBeat(true);
-            // Тривалість самого піку удару (дуже коротка для максимальної різкості)
             setTimeout(() => setIsBeat(false), 140);
 
             const nextDelay = EDIT_TIMINGS[Math.floor(Math.random() * EDIT_TIMINGS.length)];
@@ -40,8 +33,6 @@ export default function EditTimeline() {
         return () => clearTimeout(timeoutId);
     }, []);
 
-    // Комбінований об'єкт анімації: Поштовх + Струс + Поворот
-// Додаємо `as const`, щоб TypeScript розумів, що це фіксована крива Cubic Bezier
     const beatAnimation = {
         bounce: {
             scale: isBeat ? [1.45, 0.96, 1] : 1,
@@ -57,20 +48,21 @@ export default function EditTimeline() {
                 : "brightness(1) contrast(1) blur(0px)",
             transition: {
                 duration: 0.35,
-                ease: [0.16, 1, 0.3, 1] as const // <--- Операнд 'as const' повністю прибирає помилку TS
+                ease: [0.16, 1, 0.3, 1] as const
             }
         }
     };
+
+    // Отримуємо відносний шлях без зайвих доменів
+    const currentImgUrl = IMAGES[currentIndex];
 
     return (
         <div className="edit-container">
             <div className="tiktok-viewport">
 
-                {/* Фільтр №5: Постійне кінематографічне світіння Y2K (Anime Glow) */}
                 <div className="anime-glow-filter" />
                 <div className="vignette" />
 
-                {/* Фільтр №3: Білий спалах експозиції поверх усього кадру */}
                 <AnimatePresence>
                     {isBeat && (
                         <motion.div
@@ -83,32 +75,27 @@ export default function EditTimeline() {
                     )}
                 </AnimatePresence>
 
-                {/* Загальний контейнер для трансформацій (Zoom, Shake, Rotate) */}
                 <motion.div
                     className="glitch-wrapper"
                     variants={beatAnimation}
                     animate="bounce"
                 >
-                    {/* Фільтр №2: RGB Split - Червоний канал (зсувається вліво) */}
                     <div
                         className={`edit-frame rgb-red ${isBeat ? 'rgb-red-trigger' : ''}`}
-                        style={{ backgroundImage: `url(${IMAGES[currentIndex]})` }}
+                        style={{ backgroundImage: `url(${currentImgUrl})` }}
                     />
 
-                    {/* Фільтр №2: RGB Split - Синій канал (зсувається вправо) */}
                     <div
                         className={`edit-frame rgb-blue ${isBeat ? 'rgb-blue-trigger' : ''}`}
-                        style={{ backgroundImage: `url(${IMAGES[currentIndex]})` }}
+                        style={{ backgroundImage: `url(${currentImgUrl})` }}
                     />
 
-                    {/* Основний шар зображення */}
                     <div
                         className="edit-frame rgb-main"
-                        style={{ backgroundImage: `url(${IMAGES[currentIndex]})` }}
+                        style={{ backgroundImage: `url(${currentImgUrl})` }}
                     />
                 </motion.div>
 
-                {/* Динамічний текст едіту */}
                 <div className="edit-overlay-text">
                     <motion.h2
                         animate={{
