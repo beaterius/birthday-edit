@@ -2,9 +2,9 @@ import { useState, useRef } from 'react';
 import Intro from './components/Intro/Intro';
 import EditTimeline from './components/EditTimeline/EditTimeline';
 import BirthdayMessage from './components/BirthdayMessage/BirthdayMessage';
+import birthdayAudio from './assets/music/birthday.mp3';
 
 // Імпортуємо аудіо безпосередньо. Vite сам розбереться зі шляхами для GitHub Pages!
-import birthdayAudio from './assets/music/birthday.mp3';
 
 export default function App() {
     const [isStarted, setIsStarted] = useState(false);
@@ -37,6 +37,7 @@ export default function App() {
                 src={birthdayAudio}
                 loop
                 preload="auto"
-            />        </>
+            />
+        </>
     );
 }
