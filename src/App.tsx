@@ -25,7 +25,8 @@ export default function App() {
     return (
         <div className="app-container">
             {/* Фоновий трек, який тепер живе постійно і не зникає */}
-            <audio ref={audioRef} src="music/birthday.mp3" loop preload="auto" />
+            {/* Замість src="music/birthday.mp3" пишемо з автоматичним базовим шляхом Vite: */}
+            <audio ref={audioRef} src={`${import.meta.env.BASE_URL}music/birthday.mp3`} loop preload="auto" />
             {!isStarted ? (
                 <Intro onStart={handleStart} />
             ) : (
