@@ -1,11 +1,10 @@
-// src/App.tsx
 import { useState, useRef } from 'react';
 import Intro from './components/Intro/Intro';
 import EditTimeline from './components/EditTimeline/EditTimeline';
 import BirthdayMessage from './components/BirthdayMessage/BirthdayMessage';
 
-// Створюємо динамічний шлях, який підлаштовується і під локальний сервер, і під GitHub Pages
-const audioSrc = `${import.meta.env.BASE_URL}music/birthday.mp3`;
+// Імпортуємо аудіо безпосередньо. Vite сам розбереться зі шляхами для GitHub Pages!
+import birthdayAudio from '/music/birthday.mp3';
 
 export default function App() {
     const [isStarted, setIsStarted] = useState(false);
@@ -22,6 +21,7 @@ export default function App() {
 
     return (
         <>
+            {/* Ховаємо інтро після кліку */}
             {!isStarted ? (
                 <Intro onStart={handleStart} />
             ) : (
@@ -31,8 +31,8 @@ export default function App() {
                 </>
             )}
 
-            {/* Передаємо нашу константу в src */}
-            <audio ref={audioRef} src={audioSrc} loop preload="auto" />
+            {/* Використовуємо імпортований аудіо-трек */}
+            <audio ref={audioRef} src={birthdayAudio} loop preload="auto" />
         </>
     );
 }
