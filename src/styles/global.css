@@ -1,0 +1,224 @@
+/* src/styles/global.css */
+
+body {
+    margin: 0;
+    background: #010101;
+    color: #fff;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    overflow: hidden;
+    /* Використовуємо динамічну висоту для запобігання стрибків інтерфейсу на iOS/Android */
+    height: 100dvh;
+}
+
+/* Екран старту */
+.intro-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #1a0011 0%, #000000 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.intro-content {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.intro-tag {
+    color: #ff006e;
+    font-weight: bold;
+    letter-spacing: 2px;
+    /* Адаптивний розмір мітки */
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    margin-bottom: 10px;
+}
+
+.intro-title {
+    /* Адаптивний заголовок інтро під розмір екрану */
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 35px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.play-btn {
+    background: #ff006e;
+    color: white;
+    border: none;
+    padding: clamp(12px, 3vw, 18px) clamp(30px, 6vw, 50px);
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 25px #ff006e;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: auto;
+    display: inline-block;
+}
+
+.play-btn:active {
+    transform: scale(0.95);
+}
+
+/* Центрування вікна ТікТок на десктопах */
+.edit-container {
+    position: relative;
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+/* Вікно 9:16 з розумним масштабуванням */
+.tiktok-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 440px;
+    max-height: 860px;
+    /* Автоматично підтримує 9:16 на моніторах */
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    box-shadow: 0 0 120px rgba(0, 230, 255, 0.2);
+    background: #000;
+    border-radius: 16px;
+
+    /* Робимо цей блок контейнером для відліку адаптивних шрифтів текстувсередині */
+    container-type: inline-size;
+}
+
+/* ПОВНА АДАПТАЦІЯ ДЛЯ СМАРТФОНІВ ТА ЕКРАНІВ З ХУДШИМ СПІВВІДНОШЕННЯМ СТОРІН */
+@media (max-width: 500px), (max-aspect-ratio: 4/5) {
+    .tiktok-viewport {
+        max-width: 100vw;
+        max-height: 100dvh;
+        border-radius: 0;
+        aspect-ratio: auto; /* Дозволяє гнучко розтягуватись на весь дисплей смартфона */
+    }
+}
+
+.glitch-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    will-change: transform, filter;
+}
+
+.edit-frame {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    will-change: transform, filter;
+}
+
+/* Налаштування RGB Split блендингу */
+.rgb-main {
+    z-index: 2;
+    filter: contrast(1.25) brightness(1.05) saturate(1.35);
+}
+
+.rgb-red {
+    z-index: 1;
+    mix-blend-mode: screen;
+    filter: opacity(0) saturate(2);
+    transform: scale(1);
+}
+
+.rgb-blue {
+    z-index: 1;
+    mix-blend-mode: screen;
+    filter: opacity(0) saturate(2);
+    transform: scale(1);
+}
+
+/* Миттєвий глітч-зсув каналів на біт */
+.rgb-red-trigger {
+    filter: opacity(0.85) drop-shadow(0 0 8px rgba(255, 0, 0, 0.9));
+    transform: translate(-12px, -6px) scale(1.04);
+}
+
+.rgb-blue-trigger {
+    filter: opacity(0.85) drop-shadow(0 0 8px rgba(0, 255, 255, 0.9));
+    transform: translate(12px, 6px) scale(0.96);
+}
+
+/* Ефект надсильного світіння як на відео (Anime Glow Overlay) */
+.anime-glow-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    background: inherit;
+    backdrop-filter: blur(5px) brightness(1.3) contrast(1.2);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+}
+
+/* Спалах білого кольору */
+.flash-layer {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Темні краї (віньєтка) для фокусу */
+.vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+/* Стилізація тексту аніме-едiтів */
+.edit-overlay-text {
+    position: absolute;
+    bottom: 12%; /* Підняли трохи вище, щоб текст не наповзав на краї */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 7;
+    pointer-events: none;
+    padding: 0 20px; /* Додали більше падінгів по боках для безпеки */
+    box-sizing: border-box;
+}
+
+.edit-overlay-text h2 {
+    /* Текстова магія Container Queries (cqw):
+       Розмір шрифту тепер рахується виключно від ширини ТікТок-вікна,
+       а не від усього екрана ПК.
+       - 6cqw ідеально підлаштовує довгі фрази.
+       - Мінімальний розмір 1.4rem (щоб читалося на міні-смартфонах).
+       - Максимальний розмір 1.9rem (щоб на ПК текст не перекривав обличчя на фото).
+    */
+    /*font-size: clamp(1.4rem, 6.5cqw, 1.8rem);*/
+
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -1px;
+    font-style: italic;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.1;
+
+    /* Змінюємо на normal. Якщо привітання довге, воно акуратно перенесеться,
+       залишаючись красивим по центру */
+    white-space: normal;
+    word-break: break-word;
+
+    /* Анімешний кольоровий обводок тексту */
+    text-shadow: -3px -3px 0 #ff0055,
+    3px 3px 0 #00ffff,
+    0 0 20px rgba(255, 255, 255, 0.7);
+}
